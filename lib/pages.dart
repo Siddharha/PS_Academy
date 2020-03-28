@@ -177,9 +177,13 @@ class _LandingState extends State<LandingPage> {
 
 //----Home Page for tab ---///
 class HomePage extends StatelessWidget {
-  var coaches = [
-    {'img': '', 'name': 'Sid 1', 'deg': 'Android'},
-    {'img': '', 'name': 'Sid 2', 'deg': 'PHP'}
+  final coaches = [
+    {'img': '', 'name': 'Sid 1', 'deg': '@Android'},
+    {'img': '', 'name': 'Sid 2', 'deg': '@PHP'}
+  ];
+  final courses = [
+    {'icon': 'https://upload.wikimedia.org/wikipedia/commons/8/82/Android_logo_2019.svg', 'title': 'Android Basics', 'desc': 'Android app design for noobs','color':'0xff00bcd4'},
+    {'icon': 'https://upload.wikimedia.org/wikipedia/commons/8/82/Android_logo_2019.svg', 'title': 'Flutter Basics', 'desc': 'Learn Flutter for noobs','color':'0xff00bcd4'}
   ];
   @override
   Widget build(BuildContext context) {
@@ -251,7 +255,7 @@ class HomePage extends StatelessWidget {
                   child: ListView(
                     shrinkWrap: true, // use it
                     scrollDirection: Axis.vertical,
-                    children: coaches.map((itm) => CourseCell(itm)).toList(),
+                    children: courses.map((itm) => CourseCell(itm)).toList(),
                   ),
                 ),
               )
@@ -283,7 +287,7 @@ class HomePage extends StatelessWidget {
                 backgroundImage: NetworkImage(
                     'https://images.pexels.com/photos/736716/pexels-photo-736716.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500')),
                     title: Text(itm['name']),
-                    subtitle: Text('sid@gmail.com'),),
+                    subtitle: Text(itm['deg']),),
       ),
   ),
     );
@@ -292,13 +296,14 @@ class HomePage extends StatelessWidget {
 
 class CourseCell extends StatelessWidget {
    CourseCell(this.itm);
-  final Map<String, String> itm;
+  final Map<String, dynamic> itm;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 10,right: 10,top: 5),
       child: Card(
+       // color: Color(itm['color'] as int),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
@@ -306,8 +311,8 @@ class CourseCell extends StatelessWidget {
       child: Container(
         width: 180.0,
         child: ListTile(
-                    title: Text(itm['name']),
-                    subtitle: Text('sid@gmail.com'),),
+                    title: Text(itm['title']),
+                    subtitle: Text(itm['desc']),),
       ),
   ),
     );
