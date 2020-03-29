@@ -176,8 +176,17 @@ class _LandingState extends State<LandingPage> {
 //----Home Page for tab ---///
 class HomePage extends StatelessWidget {
   final coaches = [
-    {'img': 'https://i1.rgstatic.net/ii/profile.image/733149357162497-1551807836046_Q512/Tamal_Kanti_Ghosh.jpg', 'name': 'Sid 1', 'deg': '@Android'},
-    {'img': 'https://www.cse.iitb.ac.in/~sidch/images/mugshot2.jpg', 'name': 'Sid 2', 'deg': '@PHP'}
+    {
+      'img':
+          'https://i1.rgstatic.net/ii/profile.image/733149357162497-1551807836046_Q512/Tamal_Kanti_Ghosh.jpg',
+      'name': 'Sid 1',
+      'deg': '@Android'
+    },
+    {
+      'img': 'https://www.cse.iitb.ac.in/~sidch/images/mugshot2.jpg',
+      'name': 'Sid 2',
+      'deg': '@PHP'
+    }
   ];
   final courses = [
     {
@@ -194,7 +203,6 @@ class HomePage extends StatelessWidget {
       'desc': 'Learn Flutter for noobs',
       'color': '0xff15A3CE'
     },
-    
     {
       'icon':
           'https://upload.wikimedia.org/wikipedia/commons/8/82/Android_logo_2019.svg',
@@ -270,15 +278,14 @@ class HomePage extends StatelessWidget {
               ),
               Container(
                 padding: EdgeInsets.only(top: 10),
-                child:  SizedBox(
+                child: SizedBox(
                   height: 300,
                   child: ListView(
-                        shrinkWrap: true, // use it
-                        scrollDirection: Axis.vertical,
-                        children: courses.map((itm) => CourseCell(itm)).toList(),
-                      ),
+                    shrinkWrap: true, // use it
+                    scrollDirection: Axis.vertical,
+                    children: courses.map((itm) => CourseCell(itm)).toList(),
+                  ),
                 ),
-                
               )
             ],
           ),
@@ -304,9 +311,7 @@ class CoachCell extends StatelessWidget {
           width: 180.0,
           child: ListTile(
             leading: CircleAvatar(
-                radius: 20,
-                backgroundImage: NetworkImage(
-                    itm['img'])),
+                radius: 20, backgroundImage: NetworkImage(itm['img'])),
             title: Text(itm['name']),
             subtitle: Text(itm['deg']),
           ),
@@ -371,33 +376,58 @@ class CourseDetailsPage extends StatelessWidget {
       ),
       body: SizedBox(
         height: 200,
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30)),
-        child:   Stack(
-              children: <Widget>[
-                Container(color: Color(int.parse(color))),
-               
-                Container(color: Color(0x50000000),),
-                 Container(
-                   margin: EdgeInsets.all(10),
-                   child: Center(
-                    child: Column(
-                      children: <Widget>[
-                         Text('8 Classes/ month',style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold
-                        ),),
-                      
-                      Text('5,000/ month',style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
-                      ),)
-                    ],),
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30)),
+          child: Stack(
+            children: <Widget>[
+              Container(color: Color(int.parse(color))),
+              Container(
+                color: Color(0x50000000),
+              ),
+              Container(
+                margin: EdgeInsets.all(10),
+                child: Center(
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        '8 Classes/ month',
+                        style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        '5,000/ month',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      Spacer(flex: 1,),
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        child: RaisedButton(
+                          colorBrightness: Brightness.light,
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              ),
+                          onPressed: () => _purchaseOnClick(),
+                          child: Text('Purchase',style: TextStyle(
+                            fontWeight: FontWeight.bold
+                          ),),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-                 ),
-                
-              ],
-            ),),),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
+}
+
+_purchaseOnClick() {
+  print('not implemented!');
 }
