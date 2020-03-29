@@ -176,8 +176,8 @@ class _LandingState extends State<LandingPage> {
 //----Home Page for tab ---///
 class HomePage extends StatelessWidget {
   final coaches = [
-    {'img': '', 'name': 'Sid 1', 'deg': '@Android'},
-    {'img': '', 'name': 'Sid 2', 'deg': '@PHP'}
+    {'img': 'https://i1.rgstatic.net/ii/profile.image/733149357162497-1551807836046_Q512/Tamal_Kanti_Ghosh.jpg', 'name': 'Sid 1', 'deg': '@Android'},
+    {'img': 'https://www.cse.iitb.ac.in/~sidch/images/mugshot2.jpg', 'name': 'Sid 2', 'deg': '@PHP'}
   ];
   final courses = [
     {
@@ -194,20 +194,7 @@ class HomePage extends StatelessWidget {
       'desc': 'Learn Flutter for noobs',
       'color': '0xff15A3CE'
     },
-    {
-      'icon':
-          'https://upload.wikimedia.org/wikipedia/commons/8/82/Android_logo_2019.svg',
-      'title': 'Flutter Basics',
-      'desc': 'Learn Flutter for noobs',
-      'color': '0xff15A3CE'
-    },
-    {
-      'icon':
-          'https://upload.wikimedia.org/wikipedia/commons/8/82/Android_logo_2019.svg',
-      'title': 'Flutter Basics',
-      'desc': 'Learn Flutter for noobs',
-      'color': '0xff15A3CE'
-    },
+    
     {
       'icon':
           'https://upload.wikimedia.org/wikipedia/commons/8/82/Android_logo_2019.svg',
@@ -319,7 +306,7 @@ class CoachCell extends StatelessWidget {
             leading: CircleAvatar(
                 radius: 20,
                 backgroundImage: NetworkImage(
-                    'https://images.pexels.com/photos/736716/pexels-photo-736716.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500')),
+                    itm['img'])),
             title: Text(itm['name']),
             subtitle: Text(itm['deg']),
           ),
@@ -382,16 +369,35 @@ class CourseDetailsPage extends StatelessWidget {
         title: Text(this.title),
         backgroundColor: Color(int.parse(color)),
       ),
-      body: SizedBox(height: 200,
+      body: SizedBox(
+        height: 200,
       child: ClipRRect(
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
-        child: Stack(
-          children: <Widget>[
-            Container(color: Color(int.parse(color)),),
-            Container(color: Color(0x50000000),),
-            
-          ],
-        )),),
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30)),
+        child:   Stack(
+              children: <Widget>[
+                Container(color: Color(int.parse(color))),
+               
+                Container(color: Color(0x50000000),),
+                 Container(
+                   margin: EdgeInsets.all(10),
+                   child: Center(
+                    child: Column(
+                      children: <Widget>[
+                         Text('8 Classes/ month',style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold
+                        ),),
+                      
+                      Text('5,000/ month',style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
+                      ),)
+                    ],),
+                ),
+                 ),
+                
+              ],
+            ),),),
     );
   }
 }
