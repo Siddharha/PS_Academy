@@ -134,9 +134,7 @@ class _LandingState extends State<LandingPage> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    Text(
-      'Index 1: Courses',
-    ),
+    CoursesPage(),
     Text(
       'Index 2: Help',
     ),
@@ -163,8 +161,8 @@ class _LandingState extends State<LandingPage> {
             title: Text('Courses'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            title: Text('School'),
+            icon: Icon(Icons.class_),
+            title: Text('Class Room'),
           ),
         ],
         currentIndex: _selectedIndex,
@@ -182,8 +180,41 @@ class HomePage extends StatelessWidget {
     {'img': '', 'name': 'Sid 2', 'deg': '@PHP'}
   ];
   final courses = [
-    {'icon': 'https://upload.wikimedia.org/wikipedia/commons/8/82/Android_logo_2019.svg', 'title': 'Android Basics', 'desc': 'Android app design for noobs','color':'0xff00bcd4'},
-    {'icon': 'https://upload.wikimedia.org/wikipedia/commons/8/82/Android_logo_2019.svg', 'title': 'Flutter Basics', 'desc': 'Learn Flutter for noobs','color':'0xff00bcd4'}
+    {
+      'icon':
+          'https://upload.wikimedia.org/wikipedia/commons/8/82/Android_logo_2019.svg',
+      'title': 'Android Basics',
+      'desc': 'Android app design for noobs',
+      'color': '0xff00BE54'
+    },
+    {
+      'icon':
+          'https://upload.wikimedia.org/wikipedia/commons/8/82/Android_logo_2019.svg',
+      'title': 'Flutter Basics',
+      'desc': 'Learn Flutter for noobs',
+      'color': '0xff15A3CE'
+    },
+    {
+      'icon':
+          'https://upload.wikimedia.org/wikipedia/commons/8/82/Android_logo_2019.svg',
+      'title': 'Flutter Basics',
+      'desc': 'Learn Flutter for noobs',
+      'color': '0xff15A3CE'
+    },
+    {
+      'icon':
+          'https://upload.wikimedia.org/wikipedia/commons/8/82/Android_logo_2019.svg',
+      'title': 'Flutter Basics',
+      'desc': 'Learn Flutter for noobs',
+      'color': '0xff15A3CE'
+    },
+    {
+      'icon':
+          'https://upload.wikimedia.org/wikipedia/commons/8/82/Android_logo_2019.svg',
+      'title': 'PHP Basics',
+      'desc': 'Learn PHP for noobs',
+      'color': '0xff9200BE'
+    }
   ];
   @override
   Widget build(BuildContext context) {
@@ -209,7 +240,9 @@ class HomePage extends StatelessWidget {
           ),
           trailing: Icon(Icons.settings),
         ),
-        Spacer(flex: 4,),
+        Spacer(
+          flex: 1,
+        ),
         Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -236,14 +269,13 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ),
-
-                Container(
+        Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(left:5,right: 5,top: 20,bottom: 5),
+                margin: EdgeInsets.only(left: 5, right: 5, top: 20, bottom: 5),
                 child: Text(
                   'Top Courses',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -251,13 +283,15 @@ class HomePage extends StatelessWidget {
               ),
               Container(
                 padding: EdgeInsets.only(top: 10),
-                child: SizedBox( // constrain height
+                child:  SizedBox(
+                  height: 300,
                   child: ListView(
-                    shrinkWrap: true, // use it
-                    scrollDirection: Axis.vertical,
-                    children: courses.map((itm) => CourseCell(itm)).toList(),
-                  ),
+                        shrinkWrap: true, // use it
+                        scrollDirection: Axis.vertical,
+                        children: courses.map((itm) => CourseCell(itm)).toList(),
+                      ),
                 ),
+                
               )
             ],
           ),
@@ -267,9 +301,8 @@ class HomePage extends StatelessWidget {
   }
 }
 
-
- class CoachCell extends StatelessWidget {
-   CoachCell(this.itm);
+class CoachCell extends StatelessWidget {
+  CoachCell(this.itm);
   final Map<String, String> itm;
 
   @override
@@ -277,45 +310,88 @@ class HomePage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(5),
       child: Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      ),
-      child: Container(
-        width: 180.0,
-        child: ListTile(leading: CircleAvatar(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        child: Container(
+          width: 180.0,
+          child: ListTile(
+            leading: CircleAvatar(
                 radius: 20,
                 backgroundImage: NetworkImage(
                     'https://images.pexels.com/photos/736716/pexels-photo-736716.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500')),
-                    title: Text(itm['name']),
-                    subtitle: Text(itm['deg']),),
+            title: Text(itm['name']),
+            subtitle: Text(itm['deg']),
+          ),
+        ),
       ),
-  ),
     );
   }
 }
 
 class CourseCell extends StatelessWidget {
-   CourseCell(this.itm);
-  final Map<String, dynamic> itm;
+  CourseCell(this.itm);
+  final Map<String, String> itm;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 10,right: 10,top: 5),
+      margin: EdgeInsets.only(left: 10, right: 10, top: 5),
       child: Card(
-       // color: Color(itm['color'] as int),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
+        color: Color(int.parse(itm['color'])),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        margin: EdgeInsets.all(5),
+        child: Container(
+          width: 180.0,
+          child: ListTile(
+            onTap: () => courseItemClick(context, itm),
+            title: Text(itm['title']),
+            subtitle: Text(itm['desc']),
+          ),
+        ),
       ),
-      margin: EdgeInsets.all(5),
-      child: Container(
-        width: 180.0,
-        child: ListTile(
-                    title: Text(itm['title']),
-                    subtitle: Text(itm['desc']),),
-      ),
-  ),
     );
   }
 }
 
+courseItemClick(BuildContext context, Map<String, String> itm) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+        builder: (context) =>
+            CourseDetailsPage(title: itm['title'], color: itm['color'])),
+  );
+}
+
+class CoursesPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
+  }
+}
+
+class CourseDetailsPage extends StatelessWidget {
+  CourseDetailsPage({this.title, this.color});
+  final String title, color;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(this.title),
+        backgroundColor: Color(int.parse(color)),
+      ),
+      body: SizedBox(height: 200,
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
+        child: Stack(
+          children: <Widget>[
+            Container(color: Color(int.parse(color)),),
+            Container(color: Color(0x50000000),),
+            
+          ],
+        )),),
+    );
+  }
+}
