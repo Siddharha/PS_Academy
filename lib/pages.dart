@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:upi_pay/upi_pay.dart';
 
 class Splash extends StatefulWidget {
   Splash({String title});
@@ -214,7 +215,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         ListTile(
             leading: CircleAvatar(
@@ -241,58 +241,63 @@ class HomePage extends StatelessWidget {
         Spacer(
           flex: 1,
         ),
-        Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.all(5),
-                child: Text(
-                  'Top Coaches',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+         Flexible(
+           child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.all(5),
+                      child: Text(
+                        'Top Coaches',
+                        style:
+                            TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 10),
+                      child: SizedBox(
+                        height: 100,
+                        child: ListView(
+                          shrinkWrap: true, // use it
+                          scrollDirection: Axis.horizontal,
+                          children: coaches.map((itm) => CoachCell(itm)).toList(),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
-              Container(
-                padding: EdgeInsets.only(top: 10),
-                child: SizedBox(
-                  height: 100, // constrain height
-                  child: ListView(
-                    shrinkWrap: true, // use it
-                    scrollDirection: Axis.horizontal,
-                    children: coaches.map((itm) => CoachCell(itm)).toList(),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-        Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(left: 5, right: 5, top: 20, bottom: 5),
-                child: Text(
-                  'Top Courses',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+         ),
+            Flexible(
+              child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      margin:
+                          EdgeInsets.only(left: 5, right: 5, top: 20, bottom: 5),
+                      child: Text(
+                        'Top Courses',
+                        style:
+                            TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 10),
+                      child: ListView(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        children: courses.map((itm) => CourseCell(itm)).toList(),
+                      ),
+                    )
+                  ],
                 ),
               ),
-              Container(
-                padding: EdgeInsets.only(top: 10),
-                child: SizedBox(
-                  height: 300,
-                  child: ListView(
-                    shrinkWrap: true, // use it
-                    scrollDirection: Axis.vertical,
-                    children: courses.map((itm) => CourseCell(itm)).toList(),
-                  ),
-                ),
-              )
-            ],
-          ),
-        )
+            )
+          
       ],
     );
   }
@@ -371,9 +376,93 @@ courseItemClick(BuildContext context, Map<String, String> itm) {
 }
 
 class CoursesPage extends StatelessWidget {
+  final courses = [
+    {
+      'name': 'Android',
+      '_exp': '4 Years of Ex.',
+      'icon':
+          'https://upload.wikimedia.org/wikipedia/commons/3/3e/Android_logo_2019.png'
+    },
+    {
+      'name': 'PHP',
+      '_exp': '8 Years of Ex.',
+      'icon':
+          'https://banner2.cleanpng.com/20180904/xhu/kisspng-logo-image-computer-icons-php-portable-network-gra-william-davies-meng-mongodb-5b8e9698822d99.0636011515360713205332.jpg',
+    },
+    {
+      'name': 'PHP',
+      '_exp': '8 Years of Ex.',
+      'icon':
+          'https://banner2.cleanpng.com/20180904/xhu/kisspng-logo-image-computer-icons-php-portable-network-gra-william-davies-meng-mongodb-5b8e9698822d99.0636011515360713205332.jpg',
+    },
+    {
+      'name': 'PHP',
+      '_exp': '8 Years of Ex.',
+      'icon':
+          'https://banner2.cleanpng.com/20180904/xhu/kisspng-logo-image-computer-icons-php-portable-network-gra-william-davies-meng-mongodb-5b8e9698822d99.0636011515360713205332.jpg',
+    },
+    {
+      'name': 'PHP',
+      '_exp': '8 Years of Ex.',
+      'icon':
+          'https://banner2.cleanpng.com/20180904/xhu/kisspng-logo-image-computer-icons-php-portable-network-gra-william-davies-meng-mongodb-5b8e9698822d99.0636011515360713205332.jpg',
+    },
+    {
+      'name': 'PHP',
+      '_exp': '8 Years of Ex.',
+      'icon':
+          'https://banner2.cleanpng.com/20180904/xhu/kisspng-logo-image-computer-icons-php-portable-network-gra-william-davies-meng-mongodb-5b8e9698822d99.0636011515360713205332.jpg',
+    },
+    {
+      'name': 'PHP',
+      '_exp': '8 Years of Ex.',
+      'icon':
+          'https://banner2.cleanpng.com/20180904/xhu/kisspng-logo-image-computer-icons-php-portable-network-gra-william-davies-meng-mongodb-5b8e9698822d99.0636011515360713205332.jpg',
+    },
+    {
+      'name': 'PHP',
+      '_exp': '8 Years of Ex.',
+      'icon':
+          'https://banner2.cleanpng.com/20180904/xhu/kisspng-logo-image-computer-icons-php-portable-network-gra-william-davies-meng-mongodb-5b8e9698822d99.0636011515360713205332.jpg',
+    },
+  ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(margin: EdgeInsets.all(10),child: Text('All Courses',style: TextStyle(
+            fontSize: 20
+          ),)),
+          Flexible(
+            child: ListView(
+              children: courses.map((itm) => _CoursesList(itm)).toList(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CoursesList extends StatelessWidget {
+  _CoursesList(this.itm);
+
+  final Map<String, String> itm;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.all(5),
+        child: Card(
+          child: ListTile(
+            leading: CircleAvatar(
+                radius: 20, backgroundImage: NetworkImage(itm['icon'])),
+            title: Text(itm['name']),
+            subtitle: Text(itm['_exp']),
+          ),
+        ));
   }
 }
 
@@ -393,6 +482,7 @@ class CourseDetailsPage extends StatelessWidget {
       'deg': '@PHP'
     }
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -441,7 +531,8 @@ class CourseDetailsPage extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(18.0),
                               ),
-                              onPressed: () => _purchaseOnClick(),
+                              onPressed: () => paymentBottomSheet(
+                                  context), //_purchaseOnClick(),
                               child: Text(
                                 'Purchase',
                                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -492,8 +583,15 @@ class CourseDetailsPage extends StatelessWidget {
   }
 }
 
-_purchaseOnClick() {
-  print('not implemented!');
+_purchaseOnClick(UpiApplication upiApplication) async {
+  final a = await UpiPay.initiateTransaction(
+    amount: '200',
+    app: upiApplication,
+    receiverName: 'Siddhartha Maji',
+    receiverUpiAddress: 'siddhartha.ee.13@paytm',
+    transactionRef: 'ORD1215236',
+    merchantCode: '7372',
+  );
 }
 
 class ProfilePage extends StatelessWidget {
@@ -502,5 +600,59 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold();
+  }
+}
+
+paymentBottomSheet(context) {
+  UpiPay.getInstalledUpiApplications().then((value) {
+    print(value.length);
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return Container(
+            child: Wrap(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(10),
+                  child: Text(
+                    'Choose UPI App to Pay',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+                value.isNotEmpty
+                    ? Wrap(
+                        children: value
+                            .map((appItm) => AvailableUPIApps(appItm))
+                            .toList(),
+                      )
+                    : Center(
+                        child: Container(
+                            margin: EdgeInsets.all(10),
+                            child: Text(
+                              'No UPI app found! please install any upi app to purchase from Courses.',
+                              style: TextStyle(color: Colors.red),
+                            ))),
+              ],
+            ),
+          );
+        });
+  });
+}
+
+class AvailableUPIApps extends StatelessWidget {
+  AvailableUPIApps(this.appItm);
+  final ApplicationMeta appItm;
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Icon(Icons.payment),
+      title: Text(appItm.upiApplication.getAppName()),
+      onTap: () {
+        _purchaseOnClick(appItm.upiApplication);
+      },
+    );
   }
 }
