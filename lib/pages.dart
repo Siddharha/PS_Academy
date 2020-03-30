@@ -217,24 +217,27 @@ class HomePage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         ListTile(
-          leading: CircleAvatar(
-              radius: 20,
-              backgroundImage: NetworkImage(
-                  'https://images.pexels.com/photos/736716/pexels-photo-736716.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500')),
-          title: Text(
-            'Siddhartha Maji',
-            style: TextStyle(
-                color: Colors.blue, fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          subtitle: Text(
-            'siddhartha.ee.13@gmail.com',
-            style: TextStyle(
-                color: Colors.blue,
-                fontSize: 12,
-                fontWeight: FontWeight.normal),
-          ),
-          trailing: Icon(Icons.settings),
-        ),
+            leading: CircleAvatar(
+                radius: 30,
+                backgroundImage: NetworkImage(
+                    'https://images.pexels.com/photos/736716/pexels-photo-736716.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500')),
+            title: Text(
+              'Siddhartha Maji',
+              style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            ),
+            subtitle: Text(
+              'siddhartha.ee.13@gmail.com',
+              style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 12,
+                  fontWeight: FontWeight.normal),
+            ),
+            trailing: GestureDetector(
+                onTap: () => _settingsOnClick(context),
+                child: Icon(Icons.settings))),
         Spacer(
           flex: 1,
         ),
@@ -293,6 +296,16 @@ class HomePage extends StatelessWidget {
       ],
     );
   }
+}
+
+_settingsOnClick(context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+        builder: (context) => ProfilePage(
+              title: 'Profile',
+            )),
+  );
 }
 
 class CoachCell extends StatelessWidget {
@@ -367,6 +380,19 @@ class CoursesPage extends StatelessWidget {
 class CourseDetailsPage extends StatelessWidget {
   CourseDetailsPage({this.title, this.color});
   final String title, color;
+  final coaches = [
+    {
+      'img':
+          'https://i1.rgstatic.net/ii/profile.image/733149357162497-1551807836046_Q512/Tamal_Kanti_Ghosh.jpg',
+      'name': 'Sid 1',
+      'deg': '@Android'
+    },
+    {
+      'img': 'https://www.cse.iitb.ac.in/~sidch/images/mugshot2.jpg',
+      'name': 'Sid 2',
+      'deg': '@PHP'
+    }
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -374,55 +400,93 @@ class CourseDetailsPage extends StatelessWidget {
         title: Text(this.title),
         backgroundColor: Color(int.parse(color)),
       ),
-      body: SizedBox(
-        height: 200,
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(30),
-              bottomRight: Radius.circular(30)),
-          child: Stack(
-            children: <Widget>[
-              Container(color: Color(int.parse(color))),
-              Container(
-                color: Color(0x50000000),
-              ),
-              Container(
-                margin: EdgeInsets.all(10),
-                child: Center(
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        '8 Classes/ month',
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '5,000/ month',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      Spacer(flex: 1,),
-                      Container(
-                        margin: EdgeInsets.all(10),
-                        child: RaisedButton(
-                          colorBrightness: Brightness.light,
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              ),
-                          onPressed: () => _purchaseOnClick(),
-                          child: Text('Purchase',style: TextStyle(
-                            fontWeight: FontWeight.bold
-                          ),),
-                        ),
-                      )
-                    ],
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            height: 200,
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30)),
+              child: Stack(
+                children: <Widget>[
+                  Container(color: Color(int.parse(color))),
+                  Container(
+                    color: Color(0x50000000),
                   ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: Center(
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            '8 Classes/ month',
+                            style: TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            '5,000/ month',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          Spacer(
+                            flex: 1,
+                          ),
+                          Container(
+                            margin: EdgeInsets.all(10),
+                            child: RaisedButton(
+                              colorBrightness: Brightness.light,
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                              ),
+                              onPressed: () => _purchaseOnClick(),
+                              child: Text(
+                                'Purchase',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+              margin: EdgeInsets.all(15),
+              child: Text('1. Sample test\n2. Sample 2')),
+          Spacer(
+            flex: 1,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.all(5),
+                child: Text(
+                  'Coaches For the class',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
+              Container(
+                padding: EdgeInsets.only(top: 10),
+                child: SizedBox(
+                  height: 100, // constrain height
+                  child: ListView(
+                    shrinkWrap: true, // use it
+                    scrollDirection: Axis.horizontal,
+                    children: coaches.map((itm) => CoachCell(itm)).toList(),
+                  ),
+                ),
+              )
             ],
           ),
-        ),
+        ],
       ),
     );
   }
@@ -430,4 +494,13 @@ class CourseDetailsPage extends StatelessWidget {
 
 _purchaseOnClick() {
   print('not implemented!');
+}
+
+class ProfilePage extends StatelessWidget {
+  ProfilePage({this.title});
+  final String title;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
+  }
 }
