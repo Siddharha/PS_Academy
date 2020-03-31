@@ -444,15 +444,35 @@ class CoursesPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-              margin: EdgeInsets.all(10),
+         
+               Container(
+              margin: EdgeInsets.only(top:20,left: 20,right:10,bottom: 20),
               child: Text(
                 'All Courses',
                 style: TextStyle(fontSize: 20),
               )),
+               Padding(
+                 padding: const EdgeInsets.only(left:8.0,right: 8.0),
+                 child: TextField(
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.search),
+                        filled: true,
+                        enabled: true,
+                        fillColor: Color(0xff4D4D4D),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all( Radius.circular(15)),
+                            borderSide:
+                                BorderSide(color: Color(0xff707070), width: 0.1)),
+                        hintText: 'Search...'),
+                  ),
+               ),
+             
           Flexible(
-            child: ListView(
-              children: courses.map((itm) => _CoursesList(itm)).toList(),
+            child: Padding(
+              padding: const EdgeInsets.only(left:8.0,right: 8.0),
+              child: ListView(
+                children: courses.map((itm) => _CoursesList(itm)).toList(),
+              ),
             ),
           ),
         ],
