@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:upi_pay/upi_pay.dart';
@@ -175,6 +177,7 @@ class _LandingState extends State<LandingPage> {
 }
 
 //----Home Page for tab ---///
+
 class HomePage extends StatelessWidget {
   final coaches = [
     {
@@ -238,66 +241,61 @@ class HomePage extends StatelessWidget {
             trailing: GestureDetector(
                 onTap: () => _settingsOnClick(context),
                 child: Icon(Icons.settings))),
-        Spacer(
-          flex: 1,
+        Expanded(
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Flexible(
+                  child: Container(
+                    margin: EdgeInsets.all(5),
+                    child: Text(
+                      'Top Coaches',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: coaches.map((itm) => CoachCell(itm)).toList(),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
-         Flexible(
-           child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.all(5),
-                      child: Text(
-                        'Top Coaches',
-                        style:
-                            TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
+        Expanded(
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Flexible(
+                  child: Container(
+                    margin:
+                        EdgeInsets.only(left: 5, right: 5, top: 20, bottom: 5),
+                    child: Text(
+                      'Top Courses',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(top: 10),
-                      child: SizedBox(
-                        height: 100,
-                        child: ListView(
-                          shrinkWrap: true, // use it
-                          scrollDirection: Axis.horizontal,
-                          children: coaches.map((itm) => CoachCell(itm)).toList(),
-                        ),
-                      ),
-                    )
-                  ],
+                  ),
                 ),
-              ),
-         ),
-            Flexible(
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      margin:
-                          EdgeInsets.only(left: 5, right: 5, top: 20, bottom: 5),
-                      child: Text(
-                        'Top Courses',
-                        style:
-                            TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
+                Flexible(
+                  flex: 6,
+                  child: Container(
+                    child: ListView(
+                      children: courses.map((itm) => CourseCell(itm)).toList(),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(top: 10),
-                      child: ListView(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        children: courses.map((itm) => CourseCell(itm)).toList(),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            )
-          
+                  ),
+                )
+              ],
+            ),
+          ),
+        )
       ],
     );
   }
@@ -319,22 +317,36 @@ class CoachCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(5),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        child: Container(
-          width: 180.0,
-          child: ListTile(
-            leading: CircleAvatar(
-                radius: 20, backgroundImage: NetworkImage(itm['img'])),
-            title: Text(itm['name']),
-            subtitle: Text(itm['deg']),
+    return Wrap(
+      children: <Widget>[
+        Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40.0),
+          ),
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Wrap(
+                children: <Widget>[
+                  CircleAvatar(
+                      radius: 20, backgroundImage: NetworkImage(itm['img'])),
+                  Container(
+                    margin: EdgeInsets.only(left: 5, right: 5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(itm['name']),
+                        Text(itm['deg']),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
@@ -429,13 +441,15 @@ class CoursesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(margin: EdgeInsets.all(10),child: Text('All Courses',style: TextStyle(
-            fontSize: 20
-          ),)),
+          Container(
+              margin: EdgeInsets.all(10),
+              child: Text(
+                'All Courses',
+                style: TextStyle(fontSize: 20),
+              )),
           Flexible(
             child: ListView(
               children: courses.map((itm) => _CoursesList(itm)).toList(),
@@ -476,6 +490,24 @@ class CourseDetailsPage extends StatelessWidget {
       'name': 'Sid 1',
       'deg': '@Android'
     },
+     {
+      'img':
+          'https://i1.rgstatic.net/ii/profile.image/733149357162497-1551807836046_Q512/Tamal_Kanti_Ghosh.jpg',
+      'name': 'Sid 1',
+      'deg': '@Android'
+    },
+     {
+      'img':
+          'https://i1.rgstatic.net/ii/profile.image/733149357162497-1551807836046_Q512/Tamal_Kanti_Ghosh.jpg',
+      'name': 'Sid 1',
+      'deg': '@Android'
+    },
+     {
+      'img':
+          'https://i1.rgstatic.net/ii/profile.image/733149357162497-1551807836046_Q512/Tamal_Kanti_Ghosh.jpg',
+      'name': 'Sid 1',
+      'deg': '@Android'
+    },
     {
       'img': 'https://www.cse.iitb.ac.in/~sidch/images/mugshot2.jpg',
       'name': 'Sid 2',
@@ -490,108 +522,127 @@ class CourseDetailsPage extends StatelessWidget {
         title: Text(this.title),
         backgroundColor: Color(int.parse(color)),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(
-            height: 200,
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30)),
-              child: Stack(
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints viewportConstraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: viewportConstraints.maxHeight,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(color: Color(int.parse(color))),
-                  Container(
-                    color: Color(0x50000000),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    child: Center(
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            '8 Classes/ month',
-                            style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            '5,000/ month',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          Spacer(
-                            flex: 1,
-                          ),
-                          Container(
-                            margin: EdgeInsets.all(10),
-                            child: RaisedButton(
-                              colorBrightness: Brightness.light,
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                              ),
-                              onPressed: () => paymentBottomSheet(
-                                  context), //_purchaseOnClick(),
-                              child: Text(
-                                'Purchase',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          )
-                        ],
+                  SizedBox(
+                height: 200,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30)),
+                  child: Stack(
+                    children: <Widget>[
+                      Container(color: Color(int.parse(color))),
+                      Container(
+                        color: Color(0x50000000),
                       ),
-                    ),
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        child: Center(
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                '8 Classes/ month',
+                                style: TextStyle(
+                                    fontSize: 30, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                '5,000/ month',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              Spacer(
+                                flex: 1,
+                              ),
+                              Container(
+                                margin: EdgeInsets.all(10),
+                                child: RaisedButton(
+                                  colorBrightness: Brightness.light,
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                  ),
+                                  onPressed: () => paymentBottomSheet(
+                                      context), //_purchaseOnClick(),
+                                  child: Text(
+                                    'Purchase',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
+                ),
+              ),
+
+                      Container(
+                          margin: EdgeInsets.all(15),
+                          child: Text('1. Sample test\n2. Sample 2')),
+
+                          Container(
+                            height: 150,
+                            margin: EdgeInsets.all(5),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Container(
+                                    margin: EdgeInsets.all(5),
+                                    child: Text(
+                                      'Top Coaches',
+                                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: ListView(
+                                    scrollDirection: Axis.horizontal,
+                                    children: coaches.map((itm) => CoachCell(itm)).toList(),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+
                 ],
               ),
             ),
-          ),
-          Container(
-              margin: EdgeInsets.all(15),
-              child: Text('1. Sample test\n2. Sample 2')),
-          Spacer(
-            flex: 1,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.all(5),
-                child: Text(
-                  'Coaches For the class',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(top: 10),
-                child: SizedBox(
-                  height: 100, // constrain height
-                  child: ListView(
-                    shrinkWrap: true, // use it
-                    scrollDirection: Axis.horizontal,
-                    children: coaches.map((itm) => CoachCell(itm)).toList(),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ],
+          );
+        },
       ),
     );
   }
 }
 
+//
+
 _purchaseOnClick(UpiApplication upiApplication) async {
+  final transactionRef = Random.secure().nextInt(1 << 32).toString();
   final a = await UpiPay.initiateTransaction(
     amount: '200',
     app: upiApplication,
     receiverName: 'Siddhartha Maji',
     receiverUpiAddress: 'siddhartha.ee.13@paytm',
-    transactionRef: 'ORD1215236',
+    transactionRef: transactionRef,
     merchantCode: '7372',
   );
+
+  print(a);
 }
 
 class ProfilePage extends StatelessWidget {
